@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+    <title>Frontend Mentor | Advice generator app</title>
+  </head>
+
+  <body class="bg-[#1f2632]">
+    <div class="flex items-center justify-center h-screen">
+      <div class="w-full max-w-lg rounded-lg shadow bg-[#323a49]">
+        <div class="container py-5">
+          <div class="relative flex flex-col items-center text-center">
+            <p
+              id="idAdvice"
+              class="text-[#52ffa8] pt-6 pb-6 font-semibold tracking-widest"
+            ></p>
+            <div class="mx-12 pb-12">
+              <span
+                id="advice"
+                class="text-[#cee3e9] pb-6 font-semibold text-3xl"
+              ></span>
+            </div>
+            <img
+              class="hidden md:block pb-12"
+              src="images/pattern-divider-desktop.svg"
+              alt=""
+            />
+            <img
+              class="md:hidden pb-12"
+              src="images/pattern-divider-mobile.svg"
+              alt=""
+            />
+          </div>
+          <a
+            class="p-5 absolute left-1/2 -translate-x-1/2 -translate-y-1 rounded-full bg-[#52ffa8]"
+            href=""
+          >
+            <img src="images/icon-dice.svg" alt="" />
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-white">
+      Challenge by
+      <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
+        >Frontend Mentor</a
+      >. Coded by
+      <a href="https://www.frontendmentor.io/profile/azka5123">Azka</a>.
+    </div>
+
+    <script>
+      const apiUrl = "https://api.adviceslip.com/advice";
+      var textAdvice = document.getElementById("advice");
+      var idAdvice = document.getElementById("idAdvice");
+
+      // Make a GET request using the Fetch API
+      fetch(apiUrl)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          idAdvice.textContent = "Advice #" + data.slip.id;
+          textAdvice.textContent = '"' + data.slip.advice + '"';
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    </script>
+  </body>
+</html>
